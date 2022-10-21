@@ -31,7 +31,7 @@ func init() {
 }
 
 func main() {
-	channelPractice()
+
 }
 
 func sliceSetBymap() {
