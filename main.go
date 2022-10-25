@@ -2,9 +2,11 @@ package main
 
 import (
 	"errors"
+	"flag"
 	"fmt"
 	"log"
 	"math/rand"
+	"os"
 	"strings"
 	"sync"
 	"time"
@@ -26,12 +28,27 @@ import (
 // 	interval_time = 5 * time.Second
 // )
 
-func init() {
+var (
+	intflag    int
+	boolflag   bool
+	stringflag *string
+)
 
+func init() {
+	flag.IntVar(&intflag, "intflag", 0, "int flag value")
+	flag.BoolVar(&boolflag, "boolflag", false, "bool flag value")
+	stringflag = flag.String("stringflag", "default", "string flag value")
 }
 
 func main() {
+	flag.Parse()
 
+	for i := range os.Args {
+		fmt.Printf("Args %d: %v\n", i, os.Args[i])
+	}
+	fmt.Println("int flag : ", intflag)
+	fmt.Println("bool flag : ", boolflag)
+	fmt.Println("string flag : ", *stringflag)
 }
 
 func sliceSetBymap() {
