@@ -44,27 +44,6 @@ func main() {
 
 }
 
-func strangeGoRoutine() {
-	c := make(chan int)
-	done := make(chan struct{})
-	search := func(i int) {
-		go func(i int) {
-			select {
-			case c <- (i + 1) * 2:
-				fmt.Println(i, "sent result")
-			case <-done:
-				fmt.Println(i, "exiting")
-			}
-		}(i)
-	}
-	j := 10
-	for j > 0 {
-		go search(j)
-		j--
-	}
-	fmt.Println(<-c)
-}
-
 func goFuncExample() {
 	done := make(chan bool)
 
