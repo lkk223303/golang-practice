@@ -40,7 +40,34 @@ func init() {
 	stringflag = flag.String("stringflag", "default", "string flag value")
 }
 
+type data struct {
+	name string
+}
+
 func main() {
+	m := map[string]*data{"x": {"one"}}
+	m["z"].name = "what?" //???
+}
+
+func goFuncExample() {
+	done := make(chan bool)
+
+	values := []string{"a", "b", "c"}
+	for _, v := range values {
+		go func(i string) {
+			fmt.Println(i)
+			done <- true
+		}(v)
+	}
+
+	// wait for all goroutines to complete before exiting
+	for _ = range values {
+
+		fmt.Println(<-done)
+	}
+}
+
+func flagPrac() {
 	flag.Parse()
 
 	for i := range os.Args {
