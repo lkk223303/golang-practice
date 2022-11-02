@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/csv"
 	"encoding/json"
 	"encoding/xml"
 	"errors"
@@ -49,9 +50,36 @@ func init() {
 }
 
 func main() {
-	getJSONfile()
-	fmt.Println("\n\n\n")
-	getXMLfile()
+	writeCSVfile()
+}
+
+func writeCSVfile() {
+	file, err := os.Create("new_users.csv")
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer file.Close()
+
+	data := [][]string{
+		{"id", "first_name", "last_name", "email"},
+		{"1", "Sau Sheong", "Chang", "mailto:someemail@random.com"},
+		{"2", "John", "Doe", "mailto:john@email.com"},
+	}
+
+	writer := csv.NewWriter(file)
+	err = writer.WriteAll(data)
+	if err != nil {
+		fmt.Println("write error:  ", err)
+	}
+
+	// one row at a time
+	for _, row := range data {
+		err = writer.Write(row)
+		if err != nil {
+			fmt.Println("write error:  ", err)
+		}
+	}
+	writer.Flush()
 }
 
 type Recurluservers struct {
