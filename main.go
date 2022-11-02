@@ -49,8 +49,23 @@ func init() {
 	stringflag = flag.String("stringflag", "default", "string flag value")
 }
 
+type worker interface {
+	work()
+}
+
+type person struct {
+	name string
+	worker
+}
+
+func (p person) work() {
+	fmt.Println("name: ", p.name)
+}
+
 func main() {
-	writeCSVfile()
+	var w worker = person{name: "Kent"}
+	w.work()
+	fmt.Println("w: ", w)
 }
 
 func writeCSVfile() {
@@ -138,10 +153,12 @@ func getXMLfile() {
 		fmt.Println(err)
 		return
 	}
+
 	fmt.Println("v des: ", v.Description)
 	fmt.Println("v user: ", v.Users)
 	fmt.Println("v ver: ", v.Version)
 	fmt.Println("v xml: ", v.XMLName)
+	fmt.Println("v xmlName:  ", v.XMLName)
 	for _, i := range v.Users {
 		fmt.Println(i.UserName)
 		fmt.Println(i.Type)
