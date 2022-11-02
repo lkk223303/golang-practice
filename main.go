@@ -10,6 +10,7 @@ import (
 	"log"
 	"math/rand"
 	"os"
+	"reflect"
 	"strings"
 	"sync"
 	"time"
@@ -49,23 +50,8 @@ func init() {
 	stringflag = flag.String("stringflag", "default", "string flag value")
 }
 
-type worker interface {
-	work()
-}
-
-type person struct {
-	name string
-	worker
-}
-
-func (p person) work() {
-	fmt.Println("name: ", p.name)
-}
-
 func main() {
-	var w worker = person{name: "Kent"}
-	w.work()
-	fmt.Println("w: ", w)
+	getJSONfile()
 }
 
 func writeCSVfile() {
@@ -121,19 +107,54 @@ type Social struct {
 }
 
 func getJSONfile() {
-	var users userJson
+	// var users userJson
 
 	jsonFile, err := os.ReadFile("users.json")
 	if err != nil {
 		fmt.Println(err)
 	}
-	json.Unmarshal(jsonFile, &users)
 
-	for _, u := range users.User {
-		fmt.Println("User type ", u.Type)
-		fmt.Println("User age ", u.Age)
-		fmt.Println("User Name ", u.UserName)
-		fmt.Println("User social ", u.Social)
+	// var jmap map[string]interface{}
+	jmap := make(map[string]interface{})
+	json.Unmarshal(jsonFile, &jmap)
+
+	for i, u := range jmap {
+		fmt.Println("i: ", i, "\n")
+		for i, v := range u.([]interface{}) {
+			fmt.Println("i2: ", i)
+			fmt.Println("v2: ", v)
+
+			for k, v := range v.(map[string]interface{}) {
+				fmt.Println("")
+				fmt.Println("i3: ", i)
+				fmt.Println("v3: ", v)
+
+				switch vv := v.(type) {
+				case string:
+					fmt.Println(k, "is string", vv)
+				case int:
+					fmt.Println(k, "is int", vv)
+				case float64:
+					fmt.Println(k, "is float64", vv)
+				case []interface{}:
+					fmt.Println(k, "is an array:")
+					for i, u := range vv {
+						fmt.Println(i, u)
+					}
+				case map[string]interface{}:
+					fmt.Println("KEY type is ", reflect.TypeOf(vv).Key())
+					fmt.Println(k, "is an map:")
+					for i, u := range vv {
+						fmt.Println(i, u)
+					}
+				default:
+					fmt.Println(k, "is of a type I don't know how to handle")
+
+				}
+
+			}
+
+		}
 	}
 
 	// csv.NewWriter(os.Stdout)
@@ -147,23 +168,29 @@ func getXMLfile() {
 		return
 	}
 
-	v := Recurluservers{}
-	err = xml.Unmarshal(data, &v)
+	// v := Recurluservers{}
+	xmap := make(map[string]interface{})
+	err = xml.Unmarshal(data, &xmap)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	fmt.Println("v des: ", v.Description)
-	fmt.Println("v user: ", v.Users)
-	fmt.Println("v ver: ", v.Version)
-	fmt.Println("v xml: ", v.XMLName)
-	fmt.Println("v xmlName:  ", v.XMLName)
-	for _, i := range v.Users {
-		fmt.Println(i.UserName)
-		fmt.Println(i.Type)
-		fmt.Println(i.Social)
+	for i, v := range xmap {
+		fmt.Println("i: ", i)
+		fmt.Println("v: ", v)
 	}
+
+	// fmt.Println("v des: ", v.Description)
+	// fmt.Println("v user: ", v.Users)
+	// fmt.Println("v ver: ", v.Version)
+	// fmt.Println("v xml: ", v.XMLName)
+	// fmt.Println("v xmlName:  ", v.XMLName)
+	// for _, i := range v.Users {
+	// 	fmt.Println(i.UserName)
+	// 	fmt.Println(i.Type)
+	// 	fmt.Println(i.Social)
+	// }
 
 }
 
@@ -335,196 +362,20 @@ func interfaceFunc() (map[string]interface{}, error) {
 	return nil, fmt.Errorf("unable get content")
 }
 
-// func GetResponseFromStreamerXPipe(pipeID string) (oapi.ModelStreamerX, error) {
-// 	/*
-// 		type AddStreamerXJSONBody struct {
-// 			BoID            ColumnUUID                       `json:"boID"`
-// 			BoWorkspaceName string                           `json:"boWorkspaceName"`
-// 			Freq            string                           `json:"freq"`
-// 			Meta            ModelStreamerXMetaInfo           `json:"meta"`
-// 			Path            string                           `json:"path"`
-// 			Regex           string                           `json:"regex"`
-// 			TableDef        []ModelStreamerXTableCreationDef `json:"tableDef"`
-// 		}
-// 	*/
-// 	var reserv oapi.ModelStreamerX
+type worker interface {
+	work()
+}
 
-// 	flat_cfg_str, err := GetPipeCfg(pipeID)
-// 	if err != nil {
-// 		return reserv, errors.New("CANNOT get streamerX configuration")
-// 	}
+type person struct {
+	name string
+	worker
+}
 
-// 	pipe_status, err := GetPipeStatus(pipeID)
-// 	if err != nil {
-// 		return reserv, errors.New("CANNOT get streamerX pipe status")
-// 	}
-
-// 	var obj_config = map[string]interface{}{}
-// 	json.Unmarshal([]byte(flat_cfg_str), &obj_config)
-
-// 	// globalLogger.Debugf("[getResponseFromStreamerXPipe]obj_config:%v", obj_config)
-
-// 	//var main_config_asserted map[string]interface{}
-// 	if main_config, exist := obj_config["main"]; !exist {
-// 		return reserv, errors.New("CANNOT find streamerX MAIN configuration")
-// 	} else {
-// 		// globalLogger.Debugf("[getResponseFromStreamerXPipe]main_config:%v", main_config)
-// 		jsonBytes_config, err := json.Marshal(main_config)
-// 		if err != nil {
-// 			return reserv, err
-// 		}
-
-// 		json.Unmarshal(jsonBytes_config, &reserv)
-// 	}
-
-// 	/*
-// 		type ModelStreamerX struct {
-// 			BoID ColumnUUID `json:"boID"`
-// 			BoWorkspaceName ColumnName             `json:"boWorkspaceName"`
-// 			PipeID ColumnUUID `json:"pipeID"`
-// 			Freq            string                 `json:"freq"`
-// 			Meta            ModelStreamerXMetaInfo `json:"meta"`
-// 			Path            string                 `json:"path"`
-// 			Regex  string     `json:"regex"`
-// 		}
-// 	*/
-// 	reserv.PipeID = oapi.ColumnUUID(pipeID)
-// 	reserv.Status = pipe_status
-
-// 	// globalLogger.Debugf("[getResponseFromStreamerXPipe]ModelStreamerX:%v", reserv)
-
-// 	return reserv, nil
-// }
-
-// func getBigobjectStatus(p pipe.Pipe, contents map[string]interface{}) (string, error) {
-// 	// var err error
-// 	var stateList []string
-// 	loggerPrefix := "[PipeServBigobjectStatus]"
-
-// 	globalLogger.Debug("PIPE TYPE: ", p.Type)
-// 	if p.Type == pipe.STREAMER_X_TYPE {
-// 		strXModel, err := GetResponseFromStreamerXPipe(p.ID)
-
-// 		bigobject, err := boLite.GetBigobject(string(strXModel.BoID))
-
-// 		if err == sql.ErrNoRows {
-// 			// were there are no bigobject in strX
-// 			return "missing", nil
-// 		}
-// 		if err != nil {
-// 			return "", err
-// 		}
-
-// 		// if content has value from nagios service use it directly
-// 		if contents != nil {
-// 			globalLogger.Debug(loggerPrefix, "Get Content Directly from cache")
-// 			// get selected bo content from contents
-// 			boHostName := bigobject.MachineID + "_bigobject_" + bigobject.Name
-// 			selectedContent, err := selectNagiosContent(boHostName, contents)
-// 			if err != nil {
-// 				return "", err
-// 			}
-// 			globalLogger.Debug(loggerPrefix, " streamerX BO: ", boHostName)
-
-// 			/*
-// 				get services from selected BO
-// 				ex:
-// 					ae751d28-8f8b-4353-80b2-55c751d56dc8_bigobject_BO0906:
-// 						services:
-// 			*/
-// 			services, ok := selectedContent["services"].(map[string]interface{})
-// 			if !ok {
-// 				return "", fmt.Errorf(loggerPrefix, "unable get nagios Bo response services")
-// 			}
-
-// 			for name, service := range services {
-// 				// get all bigobject service state
-// 				if strings.Contains(name, "bigobject_") {
-// 					globalLogger.Debug(loggerPrefix, "service name: ", name)
-// 					currentState, ok := service.(map[string]interface{})["current_state"].(string)
-// 					if !ok {
-// 						return "", fmt.Errorf(loggerPrefix, "unable get nagios bigobject service current_state")
-// 					}
-// 					globalLogger.Debug(loggerPrefix, "service currentState : ", currentState)
-// 					_iae_state := bowatch.GetIaeStateByServiceState(currentState)
-// 					globalLogger.Debug(loggerPrefix, "service _iae_state : ", _iae_state)
-// 					stateList = append(stateList, _iae_state)
-// 				}
-// 			}
-// 		} else {
-// 			// if content no value, get machine status from bowatch (slow approach)
-// 			bigobjectStatus, err := bowatch.GetBigobjectStatus(bigobject.MachineID, bigobject.Name)
-// 			if err != nil {
-// 				return "", err
-// 			}
-// 			globalLogger.Debug("bigobject status: ", bigobjectStatus, " from pipe ", p.Name)
-// 			stateList = append(stateList, bigobjectStatus)
-// 		}
-// 		// return bowatch.GetWorstState(stateList)
-// 	} else {
-// 		// get bigobject by streamers
-// 		streamers, err := strmSrvs.GetStreamerByPipe(p.ID)
-// 		if err != nil {
-// 			return "", err
-// 		}
-// 		if streamers != nil {
-// 			// get BO status
-// 			for _, s := range streamers {
-// 				// get boID from streamer
-// 				bigobject, err := boLite.GetBigobject(s.BOID)
-// 				if err != nil {
-// 					return "", err
-// 				}
-
-// 				// if content has value from nagios service use it directly
-// 				if contents != nil {
-// 					globalLogger.Debug(loggerPrefix, "Get Content Directly from cache")
-// 					// get selected bo content from contents
-// 					boHostName := bigobject.MachineID + "_bigobject_" + bigobject.Name
-// 					selectedContent, err := selectNagiosContent(boHostName, contents)
-// 					if err != nil {
-// 						return "", err
-// 					}
-
-// 					/*
-// 						get services from selected BO
-// 						ex:
-// 							ae751d28-8f8b-4353-80b2-55c751d56dc8_bigobject_BO0906:
-// 								services:
-// 					*/
-// 					services, ok := selectedContent["services"].(map[string]interface{})
-// 					if !ok {
-// 						return "", fmt.Errorf(loggerPrefix, "unable get nagios Bo response services")
-// 					}
-
-// 					for name, service := range services {
-// 						// get all bigobject service state
-// 						if strings.Contains(name, "bigobject_") {
-// 							globalLogger.Debug(loggerPrefix, "service name: ", name)
-// 							currentState, ok := service.(map[string]interface{})["current_state"].(string)
-// 							if !ok {
-// 								return "", fmt.Errorf(loggerPrefix, "unable get nagios bigobject service current_state")
-// 							}
-// 							globalLogger.Debug(loggerPrefix, "service currentState : ", currentState)
-// 							_iae_state := bowatch.GetIaeStateByServiceState(currentState)
-// 							globalLogger.Debug(loggerPrefix, "service _iae_state : ", _iae_state)
-// 							stateList = append(stateList, _iae_state)
-// 						}
-// 					}
-// 				} else {
-// 					// if content no value, get machine status from bowatch (slow approach)
-// 					bigobjectStatus, err := bowatch.GetBigobjectStatus(bigobject.MachineID, bigobject.Name)
-// 					if err != nil {
-// 						return "", err
-// 					}
-// 					globalLogger.Debug("bigobject status: ", bigobjectStatus, " from pipe ", p.Name)
-// 					stateList = append(stateList, bigobjectStatus)
-// 				}
-// 			}
-// 		} else {
-// 			return GetPipeStatus(p.ID)
-// 		}
-// 	}
-
-// 	return bowatch.GetWorstState(stateList)
-// }
+func (p person) work() {
+	fmt.Println("name: ", p.name)
+}
+func workerInstant() {
+	var w worker = person{name: "Kent"}
+	w.work()
+	fmt.Println("w: ", w)
+}

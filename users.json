@@ -6,7 +6,7 @@
         "type": "Reader",
         "age": 23,
         "social": {
-          "facebook": "https://facebook.com",
+          "facebook": {"main":"https://facebook.com","sub":"facebook2.com"},
           "twitter": "https://twitter.com",
           "youtube": "https://youtube.com"
         }
@@ -16,7 +16,7 @@
         "type": "Author",
         "age": 17,
         "social": {
-          "facebook": "https://facebook.com",
+          "facebook": {"main":"https://facebook.com","sub":"facebook2.com"},
           "twitter": "https://twitter.com",
           "youtube": "https://youtube.com"
         }
