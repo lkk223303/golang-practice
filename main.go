@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+	"encoding/xml"
 	"errors"
 	"flag"
 	"fmt"
@@ -34,6 +36,12 @@ var (
 	stringflag *string
 )
 
+type my struct {
+	name string
+	age  int
+	man  bool `default:true`
+}
+
 func init() {
 	flag.IntVar(&intflag, "intflag", 0, "int flag value")
 	flag.BoolVar(&boolflag, "boolflag", false, "bool flag value")
@@ -41,6 +49,76 @@ func init() {
 }
 
 func main() {
+	getJSONfile()
+	fmt.Println("\n\n\n")
+	getXMLfile()
+}
+
+type Recurluservers struct {
+	XMLName     xml.Name `xml:"users"`
+	Version     string   `xml:"version,attr"`
+	Description string   `xml:",innerxml"`
+	Users       []User   `xml:"user" json:"users"` //第一層nest要對到這
+}
+type userJson struct {
+	User []User `json:"users"`
+}
+type User struct {
+	XMLName  xml.Name `xml:"user"` //第一層nest要對到這
+	UserName string   `xml:"name" json:"name"`
+	Type     string   `xml:"type,attr" json:"type"`
+	Age      int      `json:"age"`
+	Social   Social   `xml:"social" json:"social"`
+}
+type Social struct {
+	XMLName  xml.Name `xml:"social"`
+	Facebook string   `xml:"facebook" json:"facebook"`
+	Twitter  string   `xml:"twitter" json:"twitter"`
+	Youtube  string   `xml:"youtube" json:"youtube"`
+}
+
+func getJSONfile() {
+	var users userJson
+
+	jsonFile, err := os.ReadFile("users.json")
+	if err != nil {
+		fmt.Println(err)
+	}
+	json.Unmarshal(jsonFile, &users)
+
+	for _, u := range users.User {
+		fmt.Println("User type ", u.Type)
+		fmt.Println("User age ", u.Age)
+		fmt.Println("User Name ", u.UserName)
+		fmt.Println("User social ", u.Social)
+	}
+
+	// csv.NewWriter(os.Stdout)
+}
+
+func getXMLfile() {
+
+	data, err := os.ReadFile("users.xml")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	v := Recurluservers{}
+	err = xml.Unmarshal(data, &v)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println("v des: ", v.Description)
+	fmt.Println("v user: ", v.Users)
+	fmt.Println("v ver: ", v.Version)
+	fmt.Println("v xml: ", v.XMLName)
+	for _, i := range v.Users {
+		fmt.Println(i.UserName)
+		fmt.Println(i.Type)
+		fmt.Println(i.Social)
+	}
 
 }
 
