@@ -10,10 +10,11 @@ import (
 	"log"
 	"math/rand"
 	"os"
-	"reflect"
 	"strings"
 	"sync"
 	"time"
+
+	xj "github.com/basgys/goxml2json"
 )
 
 // GOMAXPROCS 根據 CPU 有多少顆，做多少平行處理，但是可以透過 GOMAXPROCS 設定使用的 CPU 數量
@@ -51,7 +52,20 @@ func init() {
 }
 
 func main() {
-	getJSONfile()
+	// jsonFile, err := os.ReadFile("users.json")
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
+	// getJSONfile(jsonFile)
+	getJSONfile(transXML())
+
+	visit([]string{"Tina", "Coco", "Anna"}, func(y string) { fmt.Println("s", y) })
+}
+
+func visit(friends []string, callback func(string)) {
+	for _, n := range friends {
+		callback(n)
+	}
 }
 
 func writeCSVfile() {
@@ -106,13 +120,12 @@ type Social struct {
 	Youtube  string   `xml:"youtube" json:"youtube"`
 }
 
-func getJSONfile() {
-	// var users userJson
+func recurJson() {
 
-	jsonFile, err := os.ReadFile("users.json")
-	if err != nil {
-		fmt.Println(err)
-	}
+}
+
+func getJSONfile(jsonFile []byte) {
+	// var users userJson
 
 	// var jmap map[string]interface{}
 	jmap := make(map[string]interface{})
@@ -120,44 +133,139 @@ func getJSONfile() {
 
 	for i, u := range jmap {
 		fmt.Println("i: ", i, "\n")
-		for i, v := range u.([]interface{}) {
-			fmt.Println("i2: ", i)
-			fmt.Println("v2: ", v)
 
-			for k, v := range v.(map[string]interface{}) {
-				fmt.Println("")
-				fmt.Println("i3: ", i)
-				fmt.Println("v3: ", v)
+		// assert type
+		switch vv := u.(type) {
+		case string:
+			fmt.Println(u, "is string", vv)
+		case int:
+			fmt.Println(u, "is int", vv)
+		case float64:
+			fmt.Println(u, "is float64", vv)
+		case []interface{}:
+			fmt.Println(u, "is an array:")
+			for i, v := range vv {
+				fmt.Println(i, v)
+			}
+		case map[string]interface{}:
 
+			for i2, v := range vv {
+				fmt.Println("i2: ", i)
+				fmt.Println("v2: ", v)
+
+				// assert type
 				switch vv := v.(type) {
 				case string:
-					fmt.Println(k, "is string", vv)
+					fmt.Println(i2, "is string", vv)
 				case int:
-					fmt.Println(k, "is int", vv)
+					fmt.Println(i2, "is int", vv)
 				case float64:
-					fmt.Println(k, "is float64", vv)
+					fmt.Println(i2, "is float64", vv)
 				case []interface{}:
-					fmt.Println(k, "is an array:")
+					fmt.Println(i2, "is an array:")
 					for i, u := range vv {
 						fmt.Println(i, u)
 					}
 				case map[string]interface{}:
-					fmt.Println("KEY type is ", reflect.TypeOf(vv).Key())
-					fmt.Println(k, "is an map:")
-					for i, u := range vv {
-						fmt.Println(i, u)
+
+					fmt.Println(v, "is an map:")
+					for i3, u := range vv {
+						fmt.Println(i3, u)
+
+						switch vv := v.(type) {
+						case string:
+							fmt.Println(i3, "is string", vv)
+						case int:
+							fmt.Println(i3, "is int", vv)
+						case float64:
+							fmt.Println(i3, "is float64", vv)
+						case []interface{}:
+							fmt.Println(i3, "is an array:")
+							for i, u := range vv {
+								fmt.Println(i, u)
+							}
+						case map[string]interface{}:
+
+							fmt.Println(i3, "is an map:")
+							for i4, u := range vv {
+								fmt.Println(i4, u)
+
+								switch vv := v.(type) {
+								case string:
+									fmt.Println(i4, "is string", vv)
+								case int:
+									fmt.Println(i4, "is int", vv)
+								case float64:
+									fmt.Println(i4, "is float64", vv)
+								case []interface{}:
+									fmt.Println(i4, "is an array:")
+									for i, u := range vv {
+										fmt.Println(i, u)
+									}
+								case map[string]interface{}:
+
+									fmt.Println(i4, "is an map:")
+									for i5, u := range vv {
+										fmt.Println(i, u)
+
+										switch vv := v.(type) {
+										case string:
+											fmt.Println(i5, "is string", vv)
+										case int:
+											fmt.Println(i5, "is int", vv)
+										case float64:
+											fmt.Println(i5, "is float64", vv)
+										case []interface{}:
+											fmt.Println(i5, "is an array:")
+											for i, u := range vv {
+												fmt.Println(i, u)
+											}
+										case map[string]interface{}:
+
+											fmt.Println(i5, "is an map:")
+											for i, u := range vv {
+												fmt.Println(i, u)
+											}
+										default:
+											fmt.Println(i5, "is of a type I don't know how to handle")
+
+										}
+									}
+								default:
+									fmt.Println(i4, "is of a type I don't know how to handle")
+
+								}
+							}
+						default:
+							fmt.Println(i3, "is of a type I don't know how to handle")
+						}
 					}
 				default:
-					fmt.Println(k, "is of a type I don't know how to handle")
-
+					fmt.Println(i2, "is of a type I don't know how to handle")
 				}
-
 			}
+		default:
+			fmt.Println(i, "is of a type I don't know how to handle")
 
 		}
 	}
 
 	// csv.NewWriter(os.Stdout)
+}
+
+func transXML() []byte {
+	// upload xml
+	xml, err := os.Open("users.xml")
+	if err != nil {
+		log.Println(err)
+	}
+	defer xml.Close()
+	json, err := xj.Convert(xml)
+	if err != nil {
+		panic("convert problem")
+	}
+
+	return json.Bytes()
 }
 
 func getXMLfile() {
