@@ -10,6 +10,7 @@ import (
 	"log"
 	"math/rand"
 	"os"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -52,14 +53,7 @@ func init() {
 }
 
 func main() {
-	// jsonFile, err := os.ReadFile("users.json")
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-	// getJSONfile(jsonFile)
-	getJSONfile(transXML())
-
-	visit([]string{"Tina", "Coco", "Anna"}, func(y string) { fmt.Println("s", y) })
+	parseJSONfile(getJSONbytes("users.json"))
 }
 
 func visit(friends []string, callback func(string)) {
@@ -119,136 +113,189 @@ type Social struct {
 	Twitter  string   `xml:"twitter" json:"twitter"`
 	Youtube  string   `xml:"youtube" json:"youtube"`
 }
+type Json struct {
+	jKey string // json key
 
-func recurJson() {
-
+	jElemant interface{} //json element
 }
 
-func getJSONfile(jsonFile []byte) {
+func getJSONbytes(path string) []byte {
+	jsonFile, err := os.ReadFile(path)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return jsonFile
+}
+
+func parseJSONfile(jsonFile []byte) {
 	// var users userJson
 
-	// var jmap map[string]interface{}
-	jmap := make(map[string]interface{})
-	json.Unmarshal(jsonFile, &jmap)
+	var jVector Json
+	json.Unmarshal(jsonFile, &jVector.jElemant)
 
-	for i, u := range jmap {
-		fmt.Println("i: ", i, "\n")
+	/*
+		bool, for JSON booleans
+		float64, for JSON numbers
+		string, for JSON strings
+		[]interface{}, for JSON arrays
+		map[string]interface{}, for JSON objects
+		nil for JSON null
 
-		// assert type
-		switch vv := u.(type) {
-		case string:
-			fmt.Println(u, "is string", vv)
-		case int:
-			fmt.Println(u, "is int", vv)
-		case float64:
-			fmt.Println(u, "is float64", vv)
+	*/
+	cnt := 0
+	var recrusJson func(Json, int)
+	recrusJson = func(jVector Json, cnt int) {
+		fmt.Println("counter", cnt)
+		switch vv := jVector.jElemant.(type) {
+		case string: // for JSON strings
+			fmt.Println(jVector.jKey, "  is string  ", vv)
+		case float64: // for JSON numbers
+			fmt.Println(jVector.jKey, "  is float64  ", vv)
 		case []interface{}:
-			fmt.Println(u, "is an array:")
+			fmt.Println(jVector.jKey, "  is an array:  ", vv)
 			for i, v := range vv {
-				fmt.Println(i, v)
+				fmt.Println("i: ", i, " v: ", v)
+				var jj Json
+				jj.jElemant = v
+				jj.jKey = strconv.Itoa(i)
+				recrusJson(jj, cnt+1)
 			}
 		case map[string]interface{}:
-
-			for i2, v := range vv {
-				fmt.Println("i2: ", i)
-				fmt.Println("v2: ", v)
-
-				// assert type
-				switch vv := v.(type) {
-				case string:
-					fmt.Println(i2, "is string", vv)
-				case int:
-					fmt.Println(i2, "is int", vv)
-				case float64:
-					fmt.Println(i2, "is float64", vv)
-				case []interface{}:
-					fmt.Println(i2, "is an array:")
-					for i, u := range vv {
-						fmt.Println(i, u)
-					}
-				case map[string]interface{}:
-
-					fmt.Println(v, "is an map:")
-					for i3, u := range vv {
-						fmt.Println(i3, u)
-
-						switch vv := v.(type) {
-						case string:
-							fmt.Println(i3, "is string", vv)
-						case int:
-							fmt.Println(i3, "is int", vv)
-						case float64:
-							fmt.Println(i3, "is float64", vv)
-						case []interface{}:
-							fmt.Println(i3, "is an array:")
-							for i, u := range vv {
-								fmt.Println(i, u)
-							}
-						case map[string]interface{}:
-
-							fmt.Println(i3, "is an map:")
-							for i4, u := range vv {
-								fmt.Println(i4, u)
-
-								switch vv := v.(type) {
-								case string:
-									fmt.Println(i4, "is string", vv)
-								case int:
-									fmt.Println(i4, "is int", vv)
-								case float64:
-									fmt.Println(i4, "is float64", vv)
-								case []interface{}:
-									fmt.Println(i4, "is an array:")
-									for i, u := range vv {
-										fmt.Println(i, u)
-									}
-								case map[string]interface{}:
-
-									fmt.Println(i4, "is an map:")
-									for i5, u := range vv {
-										fmt.Println(i, u)
-
-										switch vv := v.(type) {
-										case string:
-											fmt.Println(i5, "is string", vv)
-										case int:
-											fmt.Println(i5, "is int", vv)
-										case float64:
-											fmt.Println(i5, "is float64", vv)
-										case []interface{}:
-											fmt.Println(i5, "is an array:")
-											for i, u := range vv {
-												fmt.Println(i, u)
-											}
-										case map[string]interface{}:
-
-											fmt.Println(i5, "is an map:")
-											for i, u := range vv {
-												fmt.Println(i, u)
-											}
-										default:
-											fmt.Println(i5, "is of a type I don't know how to handle")
-
-										}
-									}
-								default:
-									fmt.Println(i4, "is of a type I don't know how to handle")
-
-								}
-							}
-						default:
-							fmt.Println(i3, "is of a type I don't know how to handle")
-						}
-					}
-				default:
-					fmt.Println(i2, "is of a type I don't know how to handle")
-				}
+			fmt.Println(jVector.jKey, "  is a map:  ", vv)
+			for i, v := range vv {
+				fmt.Println("i: ", i, " v: ", v)
+				var jj Json
+				jj.jElemant = v
+				jj.jKey = i
+				recrusJson(jj, cnt+1)
 			}
+		case nil:
+			return
 		default:
-			fmt.Println(i, "is of a type I don't know how to handle")
-
+			fmt.Println(vv, "is of a type I don't know how to handle")
 		}
 	}
+
+	recrusJson(jVector, cnt)
+
+	// for i, u := range jVector.(map[string]interface{}) {
+	// 	fmt.Println("i: ", i)
+
+	// 	// assert type
+	// 	switch vv := u.(type) {
+	// 	case string:
+	// 		fmt.Println(u, "is string", vv)
+	// 	case int:
+	// 		fmt.Println(u, "is int", vv)
+	// 	case float64:
+	// 		fmt.Println(u, "is float64", vv)
+	// 	case []interface{}:
+	// 		fmt.Println(u, "is an array:")
+	// 		for i, v := range vv {
+	// 			fmt.Println(i, v)
+	// 		}
+	// 	case map[string]interface{}:
+
+	// 		for i2, v := range vv {
+	// 			fmt.Println("i2: ", i)
+	// 			fmt.Println("v2: ", v)
+
+	// 			// assert type
+	// 			switch vv := v.(type) {
+	// 			case string:
+	// 				fmt.Println(i2, "is string", vv)
+	// 			case int:
+	// 				fmt.Println(i2, "is int", vv)
+	// 			case float64:
+	// 				fmt.Println(i2, "is float64", vv)
+	// 			case []interface{}:
+	// 				fmt.Println(i2, "is an array:")
+	// 				for i, u := range vv {
+	// 					fmt.Println(i, u)
+	// 				}
+	// 			case map[string]interface{}:
+
+	// 				fmt.Println(v, "is an map:")
+	// 				for i3, u := range vv {
+	// 					fmt.Println(i3, u)
+
+	// 					switch vv := v.(type) {
+	// 					case string:
+	// 						fmt.Println(i3, "is string", vv)
+	// 					case int:
+	// 						fmt.Println(i3, "is int", vv)
+	// 					case float64:
+	// 						fmt.Println(i3, "is float64", vv)
+	// 					case []interface{}:
+	// 						fmt.Println(i3, "is an array:")
+	// 						for i, u := range vv {
+	// 							fmt.Println(i, u)
+	// 						}
+	// 					case map[string]interface{}:
+
+	// 						fmt.Println(i3, "is an map:")
+	// 						for i4, u := range vv {
+	// 							fmt.Println(i4, u)
+
+	// 							switch vv := v.(type) {
+	// 							case string:
+	// 								fmt.Println(i4, "is string", vv)
+	// 							case int:
+	// 								fmt.Println(i4, "is int", vv)
+	// 							case float64:
+	// 								fmt.Println(i4, "is float64", vv)
+	// 							case []interface{}:
+	// 								fmt.Println(i4, "is an array:")
+	// 								for i, u := range vv {
+	// 									fmt.Println(i, u)
+	// 								}
+	// 							case map[string]interface{}:
+
+	// 								fmt.Println(i4, "is an map:")
+	// 								for i5, u := range vv {
+	// 									fmt.Println(i, u)
+
+	// 									switch vv := v.(type) {
+	// 									case string:
+	// 										fmt.Println(i5, "is string", vv)
+	// 									case int:
+	// 										fmt.Println(i5, "is int", vv)
+	// 									case float64:
+	// 										fmt.Println(i5, "is float64", vv)
+	// 									case []interface{}:
+	// 										fmt.Println(i5, "is an array:")
+	// 										for i, u := range vv {
+	// 											fmt.Println(i, u)
+	// 										}
+	// 									case map[string]interface{}:
+
+	// 										fmt.Println(i5, "is an map:")
+	// 										for i, u := range vv {
+	// 											fmt.Println(i, u)
+	// 										}
+	// 									default:
+	// 										fmt.Println(i5, "is of a type I don't know how to handle")
+
+	// 									}
+	// 								}
+	// 							default:
+	// 								fmt.Println(i4, "is of a type I don't know how to handle")
+
+	// 							}
+	// 						}
+	// 					default:
+	// 						fmt.Println(i3, "is of a type I don't know how to handle")
+	// 					}
+	// 				}
+	// 			default:
+	// 				fmt.Println(i2, "is of a type I don't know how to handle")
+	// 			}
+	// 		}
+	// 	default:
+	// 		fmt.Println(i, "is of a type I don't know how to handle")
+
+	// 	}
+	// }
 
 	// csv.NewWriter(os.Stdout)
 }

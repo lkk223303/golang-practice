@@ -3,7 +3,11 @@
   <user type="admin">
     <name>Elliot</name>
     <social>
-      <facebook>https://facebook.com</facebook>
+      <facebook>
+        <main>
+          https://facebook.com
+        </main>
+      </facebook>
       <twitter>https://twitter.com</twitter>
       <youtube>https://youtube.com</youtube>
     </social>

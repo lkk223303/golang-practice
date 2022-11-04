@@ -6,7 +6,53 @@
         "type": "Reader",
         "age": 23,
         "social": {
+          "facebook": {"main":"https://facebook.com"},
+          "twitter": "https://twitter.com",
+          "youtube": "https://youtube.com"
+        }
+      },
+      {
+        "name": "Fraser",
+        "type": "Author",
+        "age": 17,
+        "social": {
           "facebook": {"main":"https://facebook.com","sub":"facebook2.com"},
+          "twitter": "https://twitter.com",
+          "youtube": "https://youtube.com"
+        }
+      }
+    ],
+    "admins": [
+        
+      {
+        "name": "Elliot",
+        "type": "Reader",
+        "age": 23,
+        "social": {
+          "facebook": {"main":"https://facebook.com"},
+          "twitter": "https://twitter.com",
+          "youtube": "https://youtube.com"
+        }
+      },
+      {
+        "name": "Fraser",
+        "type": "Author",
+        "age": 17,
+        "social": {
+          "facebook": {"main":"https://facebook.com","sub":"facebook2.com"},
+          "twitter": "https://twitter.com",
+          "youtube": "https://youtube.com"
+        }
+      }
+    ],
+    "cunts": [
+        
+      {
+        "name": "Elliot",
+        "type": "Reader",
+        "age": 23,
+        "social": {
+          "facebook": {"main":"https://facebook.com"},
           "twitter": "https://twitter.com",
           "youtube": "https://youtube.com"
         }
