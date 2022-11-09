@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/csv"
-	"encoding/json"
 	"encoding/xml"
 	"errors"
 	"flag"
@@ -10,8 +9,6 @@ import (
 	"log"
 	"math/rand"
 	"os"
-	"sort"
-	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -54,7 +51,7 @@ func init() {
 }
 
 func main() {
-	parseJSONfile(getJSONfile("users.json"))
+	ParseJSONfile(GetJSONfile("users.json"))
 }
 
 func visit(friends []string, callback func(string)) {
@@ -113,113 +110,6 @@ type Social struct {
 	Facebook string   `xml:"facebook" json:"facebook"`
 	Twitter  string   `xml:"twitter" json:"twitter"`
 	Youtube  string   `xml:"youtube" json:"youtube"`
-}
-
-type Json struct {
-	Key   string      // json key
-	Value interface{} //json element
-}
-
-func getJSONfile(path string) []byte {
-	jsonFile, err := os.ReadFile(path)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	// dec := json.NewDecoder(strings.NewReader(string(jsonFile)))
-	return jsonFile
-}
-
-type KeyValue map[string]interface{}
-
-func parseJSONfile(jsonFile []byte) {
-	// var users userJson
-
-	var jVector Json
-	json.Unmarshal(jsonFile, &jVector.Value)
-
-	f := make(KeyValue, 0)
-
-	/*
-		bool, for JSON booleans
-		float64, for JSON numbers
-		string, for JSON strings
-		[]interface{}, for JSON arrays
-		map[string]interface{}, for JSON objects
-		nil for JSON null
-
-	*/
-	cnt := 0
-
-	err := recrusJson(jVector, cnt, f)
-	if err != nil {
-		fmt.Println("err")
-	}
-
-	keys := make([]string, 0, len(f))
-
-	for k := range f {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
-
-	for _, k := range keys {
-		// fmt.Println(k, f[k])
-		fmt.Println("CSV key: ", k)
-		fmt.Println("CSV value: ", f[k])
-	}
-
-}
-
-func recrusJson(jVector Json, cnt int, out KeyValue) (err error) {
-
-	fmt.Println("counter", cnt)
-	if cnt == 0 {
-		jVector.Key = "JSON"
-	}
-
-	switch vv := jVector.Value.(type) {
-	case string: // for JSON strings
-		fmt.Println(jVector.Key, "  is string value:  ", vv)
-
-		out[jVector.Key] = vv
-
-	case float64: // for JSON numbers
-
-		fmt.Println(jVector.Key, "  is float64 value: ", vv)
-		out[jVector.Key] = vv
-
-	case []interface{}:
-
-		fmt.Println(jVector.Key, "  is an array:  ", vv)
-		for i, v := range vv {
-			fmt.Println("i: ", i, " v: ", v)
-
-			var jj Json
-			jj.Value = v
-			jj.Key = jVector.Key + "_" + strconv.Itoa(i)
-
-			recrusJson(jj, cnt+1, out)
-		}
-	case map[string]interface{}:
-
-		fmt.Println(jVector.Key, "  is a map:  ", vv)
-		for i, v := range vv {
-			fmt.Println("i: ", i, " v: ", v)
-
-			var jj Json
-			jj.Value = v
-			jj.Key = jVector.Key + "_" + i
-
-			recrusJson(jj, cnt+1, out)
-		}
-	case nil:
-		return
-	default:
-		fmt.Println(vv, "is of a type I don't know how to handle")
-	}
-
-	return
 }
 
 func transXML() []byte {
