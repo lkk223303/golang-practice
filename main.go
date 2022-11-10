@@ -9,6 +9,7 @@ import (
 	"log"
 	"math/rand"
 	"os"
+	"regexp"
 	"strings"
 	"sync"
 	"time"
@@ -51,7 +52,10 @@ func init() {
 }
 
 func main() {
-	ParseJSONfile(GetJSONfile("users.json"))
+	r, _ := regexp.Compile(`\t[0-9]+\t`)
+	s := "acdf\t12.2\tsga1sd"
+	fmt.Println(r.MatchString(s))
+
 }
 
 func visit(friends []string, callback func(string)) {
