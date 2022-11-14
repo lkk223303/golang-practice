@@ -9,6 +9,7 @@ import (
 	"log"
 	"math/rand"
 	"os"
+	"reflect"
 	"strings"
 	"sync"
 	"time"
@@ -43,6 +44,12 @@ type my struct {
 	age  int
 	man  bool `default:true`
 }
+type Book struct {
+	Id      int
+	Title   string
+	Price   float32
+	Authors []string
+}
 
 func init() {
 	flag.IntVar(&intflag, "intflag", 0, "int flag value")
@@ -51,49 +58,18 @@ func init() {
 }
 
 func main() {
-	// r, _ := regexp.Compile(`\t[0-9]+\t`)
-	// s := "acdf\t12.2\tsga1sd"
-	// fmt.Println(r.MatchString(s))
-	fileEncode()
-}
+	book := Book{}
 
-func fileEncode() error {
+	//use of Elem() method
+	e := reflect.ValueOf(&book).Elem()
+	fmt.Println(e.NumField())
 
-	file, err := os.OpenFile("EnvPath", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		return err
+	for i := 0; i < e.NumField(); i++ {
+		varName := e.Type().Field(i).Name
+		varType := e.Type().Field(i).Type
+		varValue := e.Field(i).Interface()
+		fmt.Printf("%v %v %v\n", varName, varType, varValue)
 	}
-	defer file.Close()
-	s := `SENDER_EMAIL = "bigobject.iae2@gmail.com"
-SENDER_NAME = "bigobject"
-SMTP_HOST = "smtp.gmailx.com"
-SMTP_PORT = "587"
-SMTP_USER = "bigobject.iae2@gmail.com"
-SMTP_PSWD = "123"
-SLACK_URL = "iaesla"
-FERNET_KEY="Eq7zT_fBIxwqlWMffGVEnj64GYv8UJhusYraFbm6E9Q="
-SENDER_EMAIL = "gracechen@bigobject.io"
-SENDER_NAME = "IAE_52"
-SMTP_HOST = "msa.hinet.net"
-SMTP_PORT = "25"
-SMTP_USER = ""
-SMTP_PSWD = ""
-SLACK_URL = "iaesla"aaa
-`
-	// buf := new(bytes.Buffer)
-	// tomlEncoder := toml.NewEncoder(buf)
-	// tomlEncoder.Indent = ""
-	// if err := tomlEncoder.Encode(env); err != nil {
-	// 	return fmt.Errorf("env encode: %s", err)
-	// }
-
-	x, err := file.WriteString(s)
-	if err != nil {
-		log.Println("err", err)
-	}
-	fmt.Println(x)
-	return nil
-
 }
 
 func visit(friends []string, callback func(string)) {

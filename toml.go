@@ -2,7 +2,9 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 
 	"github.com/BurntSushi/toml"
@@ -62,4 +64,42 @@ func setEnvToFile(env Env) error {
 	}
 
 	return nil
+}
+func fileEncode() error {
+
+	file, err := os.OpenFile("EnvPath", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	s := `SENDER_EMAIL = "bigobject.iae2@gmail.com"
+SENDER_NAME = "bigobject"
+SMTP_HOST = "smtp.gmailx.com"
+SMTP_PORT = "587"
+SMTP_USER = "bigobject.iae2@gmail.com"
+SMTP_PSWD = "123"
+SLACK_URL = "iaesla"
+FERNET_KEY="Eq7zT_fBIxwqlWMffGVEnj64GYv8UJhusYraFbm6E9Q="
+SENDER_EMAIL = "gracechen@bigobject.io"
+SENDER_NAME = "IAE_52"
+SMTP_HOST = "msa.hinet.net"
+SMTP_PORT = "25"
+SMTP_USER = ""
+SMTP_PSWD = ""
+SLACK_URL = "iaesla"aaa
+`
+	// buf := new(bytes.Buffer)
+	// tomlEncoder := toml.NewEncoder(buf)
+	// tomlEncoder.Indent = ""
+	// if err := tomlEncoder.Encode(env); err != nil {
+	// 	return fmt.Errorf("env encode: %s", err)
+	// }
+
+	x, err := file.WriteString(s)
+	if err != nil {
+		log.Println("err", err)
+	}
+	fmt.Println(x)
+	return nil
+
 }
