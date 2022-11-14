@@ -62,7 +62,7 @@ func main() {
 
 	//use of Elem() method
 	e := reflect.ValueOf(&book).Elem()
-	fmt.Println(e.NumField())
+	fmt.Println(e)
 
 	for i := 0; i < e.NumField(); i++ {
 		varName := e.Type().Field(i).Name

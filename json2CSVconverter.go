@@ -4,6 +4,7 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
+	"log"
 	"os"
 	"regexp"
 	"sort"
@@ -71,6 +72,7 @@ func parseJSONfile(jsonFile []byte) {
 			for i := len(t) - 1; i >= 0; i-- {
 				// if has array index
 				if re.MatchString(t[i]) {
+
 					// csv array position ----------- this must be first, cause key will change
 					t[i] = strings.TrimPrefix(t[i], "'")
 					t[i] = strings.TrimSuffix(t[i], "'")
@@ -108,7 +110,7 @@ func parseJSONfile(jsonFile []byte) {
 			}
 		} else {
 			// has no array num in the key, should have unique key/value
-			flatMap[k] = append(flatMap[k], f[k])
+			flatMap[strings.Join(strings.Split(k, "\t"), "_")] = append(flatMap[k], f[k])
 		}
 
 		// trmK := re.ReplaceAllString(k, "$1")
@@ -149,11 +151,6 @@ func WriteCSV(csvMap map[string][]interface{}) {
 			value1		value1
 			value2		value2
 	*/
-	// data := [][]string{}
-	// 	0 {"id", "first_name", "last_name", "email"},
-	// 	1 {"1", "Sau Sheong", "Chang", "mailto:someemail@random.com"},
-	// 	2 {"2", "John", "Doe", "mailto:john@email.com"},
-	// 	3 {"",  "Kent", "Doe", "mailto:john@email.com"},
 
 	file, err := os.Create("new1.csv")
 	if err != nil {
@@ -162,20 +159,26 @@ func WriteCSV(csvMap map[string][]interface{}) {
 	defer file.Close()
 
 	// allocate csv row numbers
-	x := 0
+	vl := 0 // value length
 	for _, v := range csvMap {
-		if x < len(v) {
-			x = len(v)
+		if vl < len(v) {
+			vl = len(v)
 		}
 	}
-	data := make([][]string, x+1) // allocate real len +1 for precaution
+	log.Println("Max value length is ", vl+1)
+	data := make([][]string, vl+1) // allocate real len +1  for header
 	// allocate csv col numbers
-	for _, key := range keys {
-		values := csvMap[key]
-		for i := 0; i <= len(values); i++ {
-			data[i] = make([]string, len(keys))
-		}
+	for i := 0; i <= vl; i++ { //allocate +1 for header
+		data[i] = make([]string, len(keys))
+		log.Println("length of data col is now ", len(data[i]))
 	}
+	log.Println("Max col length is ", len(keys))
+
+	// data := [][]string{}
+	// 	0 {"id", "first_name", "last_name", "email"},
+	// 	1 {"1", "Sau Sheong", "Chang", "mailto:someemail@random.com"},
+	// 	2 {"2", "John", "Doe", "mailto:john@email.com"},
+	// 	3 {"",  "Kent", "Doe", "mailto:john@email.com"},
 
 	pivotY := 0
 	for _, key := range keys {
@@ -213,12 +216,37 @@ func WriteCSV(csvMap map[string][]interface{}) {
 		pivotY++
 	}
 
-	writer := csv.NewWriter(file)
-	err = writer.WriteAll(data)
+	for _, v := range data {
+		fmt.Println(v)
+	}
 
+	writer := csv.NewWriter(file)
+
+	err = writer.WriteAll(data)
 	if err != nil {
 		fmt.Println("write error:  ", err)
 	}
+	// r := csv.NewReader(file)
+	// rd, _ := r.ReadAll()
+	// // Write records that are not empty
+	// for _, record := range rd {
+	// 	if !empty(record) {
+	// 		_ = writer.Write(record)
+	// 	}
+	// }
+
+	// // Flush records in buffer
+	// writer.Flush()
+}
+
+// empty returns true if all fields are empty
+func empty(record []string) bool {
+	for i := range record {
+		if record[i] != "" {
+			return false
+		}
+	}
+	return true
 }
 
 func recrusJson(jVector Json, cnt int, out KeyValue) (err error) {
