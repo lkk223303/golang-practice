@@ -9,7 +9,6 @@ import (
 	"log"
 	"math/rand"
 	"os"
-	"reflect"
 	"strings"
 	"sync"
 	"time"
@@ -58,18 +57,15 @@ func init() {
 }
 
 func main() {
-	book := Book{}
+	randomMain()
 
-	//use of Elem() method
-	e := reflect.ValueOf(&book).Elem()
-	fmt.Println(e)
-
-	for i := 0; i < e.NumField(); i++ {
-		varName := e.Type().Field(i).Name
-		varType := e.Type().Field(i).Type
-		varValue := e.Field(i).Interface()
-		fmt.Printf("%v %v %v\n", varName, varType, varValue)
-	}
+}
+func printINT(i *int) {
+	x := i
+	fmt.Println("x", x)
+	fmt.Println("x", *x)
+	fmt.Println("i", i)
+	fmt.Println("i", &i)
 }
 
 func visit(friends []string, callback func(string)) {

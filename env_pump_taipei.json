@@ -1,0 +1,775 @@
+{
+	"count": 77,
+	"data": [
+		{
+			"stationNo": "62",
+			"stationName": "康樂",
+			"recTime": "202109011651",
+			"levelIn": 1.96,
+			"levelOut": 1.21,
+			"allPumbLights": "-",
+			"pumbNum": 5,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "51",
+			"stationName": "南港",
+			"recTime": "202109011652",
+			"levelIn": 3.61,
+			"levelOut": 0.23,
+			"allPumbLights": "-",
+			"pumbNum": 5,
+			"doorNum": 3
+		},
+		{
+			"stationNo": "78",
+			"stationName": "康寧",
+			"recTime": "202109011651",
+			"levelIn": 1.38,
+			"levelOut": 1.81,
+			"allPumbLights": "-",
+			"pumbNum": 7,
+			"doorNum": 4
+		},
+		{
+			"stationNo": "50",
+			"stationName": "南湖",
+			"recTime": "202109011651",
+			"levelIn": 3.97,
+			"levelOut": 0.20,
+			"allPumbLights": "-",
+			"pumbNum": 3,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "49",
+			"stationName": "長壽",
+			"recTime": "202109011651",
+			"levelIn": 2.35,
+			"levelOut": 1.67,
+			"allPumbLights": "-",
+			"pumbNum": 4,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "48",
+			"stationName": "成功",
+			"recTime": "202109011651",
+			"levelIn": 1.79,
+			"levelOut": 0.64,
+			"allPumbLights": "-",
+			"pumbNum": 4,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "42",
+			"stationName": "成美",
+			"recTime": "202109011651",
+			"levelIn": 2.54,
+			"levelOut": 0.41,
+			"allPumbLights": "-",
+			"pumbNum": 3,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "15",
+			"stationName": "玉成",
+			"recTime": "202109011652",
+			"levelIn": 0.29,
+			"levelOut": 0.35,
+			"allPumbLights": "-",
+			"pumbNum": 11,
+			"doorNum": 5
+		},
+		{
+			"stationNo": "16",
+			"stationName": "南京",
+			"recTime": "202109011652",
+			"levelIn": 1.77,
+			"levelOut": 0.42,
+			"allPumbLights": "-",
+			"pumbNum": 3,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "17",
+			"stationName": "松山",
+			"recTime": "202109011651",
+			"levelIn": 2.60,
+			"levelOut": 1.08,
+			"allPumbLights": "-",
+			"pumbNum": 3,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "47",
+			"stationName": "新民權",
+			"recTime": "202109011652",
+			"levelIn": -0.08,
+			"levelOut": 0.44,
+			"allPumbLights": "-",
+			"pumbNum": 10,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "18",
+			"stationName": "撫遠",
+			"recTime": "202109011651",
+			"levelIn": 0.02,
+			"levelOut": 0.41,
+			"allPumbLights": "-",
+			"pumbNum": 5,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "46",
+			"stationName": "陽光",
+			"recTime": "202109011651",
+			"levelIn": 0.52,
+			"levelOut": 0.52,
+			"allPumbLights": "-",
+			"pumbNum": 10,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "45",
+			"stationName": "港漧",
+			"recTime": "202109011651",
+			"levelIn": 1.40,
+			"levelOut": 1.77,
+			"allPumbLights": "-",
+			"pumbNum": 8,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "44",
+			"stationName": "環山",
+			"recTime": "202109011651",
+			"levelIn": 0.55,
+			"levelOut": 0.53,
+			"allPumbLights": "-",
+			"pumbNum": 6,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "43",
+			"stationName": "北安",
+			"recTime": "202109011651",
+			"levelIn": 0.50,
+			"levelOut": 0.49,
+			"allPumbLights": "-",
+			"pumbNum": 8,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "19",
+			"stationName": "濱江",
+			"recTime": "202109011651",
+			"levelIn": -0.20,
+			"levelOut": 0.55,
+			"allPumbLights": "-",
+			"pumbNum": 6,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "20",
+			"stationName": "大直",
+			"recTime": "202109011651",
+			"levelIn": 0.36,
+			"levelOut": 0.75,
+			"allPumbLights": "-",
+			"pumbNum": 12,
+			"doorNum": 10
+		},
+		{
+			"stationNo": "21",
+			"stationName": "中山",
+			"recTime": "202109011651",
+			"levelIn": -0.43,
+			"levelOut": 0.60,
+			"allPumbLights": "-",
+			"pumbNum": 9,
+			"doorNum": 3
+		},
+		{
+			"stationNo": "22",
+			"stationName": "建國",
+			"recTime": "202109011651",
+			"levelIn": -0.49,
+			"levelOut": 0.54,
+			"allPumbLights": "-",
+			"pumbNum": 9,
+			"doorNum": 4
+		},
+		{
+			"stationNo": "23",
+			"stationName": "新生",
+			"recTime": "202109011651",
+			"levelIn": -0.37,
+			"levelOut": 0.56,
+			"allPumbLights": "-",
+			"pumbNum": 12,
+			"doorNum": 5
+		},
+		{
+			"stationNo": "76",
+			"stationName": "新生二",
+			"recTime": "202109011652",
+			"levelIn": -0.36,
+			"levelOut": 0.55,
+			"allPumbLights": "-",
+			"pumbNum": 4,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "24",
+			"stationName": "圓山",
+			"recTime": "202109011651",
+			"levelIn": -0.32,
+			"levelOut": -0.35,
+			"allPumbLights": "-",
+			"pumbNum": 6,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "26",
+			"stationName": "劍潭",
+			"recTime": "202109011651",
+			"levelIn": -0.43,
+			"levelOut": 0.70,
+			"allPumbLights": "-",
+			"pumbNum": 5,
+			"doorNum": 3
+		},
+		{
+			"stationNo": "25",
+			"stationName": "大龍",
+			"recTime": "202109011652",
+			"levelIn": -0.43,
+			"levelOut": 0.57,
+			"allPumbLights": "-",
+			"pumbNum": 4,
+			"doorNum": 3
+		},
+		{
+			"stationNo": "29",
+			"stationName": "社子",
+			"recTime": "202109011651",
+			"levelIn": -0.26,
+			"levelOut": 0.46,
+			"allPumbLights": "-",
+			"pumbNum": 5,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "27",
+			"stationName": "士林",
+			"recTime": "202109011651",
+			"levelIn": -0.42,
+			"levelOut": 0.77,
+			"allPumbLights": "-",
+			"pumbNum": 10,
+			"doorNum": 5
+		},
+		{
+			"stationNo": "28",
+			"stationName": "士林二",
+			"recTime": "202109011651",
+			"levelIn": -0.46,
+			"levelOut": 0.81,
+			"allPumbLights": "-",
+			"pumbNum": 2,
+			"doorNum": 6
+		},
+		{
+			"stationNo": "70",
+			"stationName": "社基下",
+			"recTime": "202109011653",
+			"levelIn": -0.06,
+			"levelOut": 0.73,
+			"allPumbLights": "+",
+			"pumbNum": 13,
+			"doorNum": 12
+		},
+		{
+			"stationNo": "71",
+			"stationName": "社基上",
+			"recTime": "202109011652",
+			"levelIn": 0.07,
+			"levelOut": 0.64,
+			"allPumbLights": "-",
+			"pumbNum": 15,
+			"doorNum": 8
+		},
+		{
+			"stationNo": "67",
+			"stationName": "洲美二",
+			"recTime": "202109011651",
+			"levelIn": -0.21,
+			"levelOut": 0.66,
+			"allPumbLights": "-",
+			"pumbNum": 2,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "64",
+			"stationName": "洲美一",
+			"recTime": "202109011650",
+			"levelIn": -0.19,
+			"levelOut": 0.75,
+			"allPumbLights": "-",
+			"pumbNum": 6,
+			"doorNum": 5
+		},
+		{
+			"stationNo": "72",
+			"stationName": "大業二",
+			"recTime": "202109011652",
+			"levelIn": 0.37,
+			"levelOut": 0.72,
+			"allPumbLights": "-",
+			"pumbNum": 1,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "77",
+			"stationName": "大業東",
+			"recTime": "202109011652",
+			"levelIn": 0.76,
+			"levelOut": 0.51,
+			"allPumbLights": "-",
+			"pumbNum": 7,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "73",
+			"stationName": "下八仙",
+			"recTime": "202109011652",
+			"levelIn": -0.04,
+			"levelOut": 0.50,
+			"allPumbLights": "-",
+			"pumbNum": 5,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "74",
+			"stationName": "誠正",
+			"recTime": "202109011651",
+			"levelIn": 4.18,
+			"levelOut": 2.95,
+			"allPumbLights": "-",
+			"pumbNum": 7,
+			"doorNum": 3
+		},
+		{
+			"stationNo": "81",
+			"stationName": "木新",
+			"recTime": "202109011653",
+			"levelIn": 13.25,
+			"levelOut": 12.24,
+			"allPumbLights": "-",
+			"pumbNum": 2,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "36",
+			"stationName": "林森",
+			"recTime": "202109011653",
+			"levelIn": 0.12,
+			"levelOut": 0.12,
+			"allPumbLights": "-",
+			"pumbNum": 6,
+			"doorNum": 3
+		},
+		{
+			"stationNo": "82",
+			"stationName": "文林",
+			"recTime": "202109011653",
+			"levelIn": -2.45,
+			"levelOut": 1.55,
+			"allPumbLights": "-",
+			"pumbNum": 3,
+			"doorNum": 0
+		},
+		{
+			"stationNo": "53",
+			"stationName": "新長安",
+			"recTime": "202109011653",
+			"levelIn": -0.25,
+			"levelOut": -0.26,
+			"allPumbLights": "-",
+			"pumbNum": 4,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "83",
+			"stationName": "文林二",
+			"recTime": "202109011654",
+			"levelIn": 1.45,
+			"levelOut": 1.55,
+			"allPumbLights": "-",
+			"pumbNum": 4,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "38",
+			"stationName": "長春",
+			"recTime": "202109011653",
+			"levelIn": 0.75,
+			"levelOut": -0.27,
+			"allPumbLights": "-",
+			"pumbNum": 2,
+			"doorNum": 3
+		},
+		{
+			"stationNo": "39",
+			"stationName": "民生",
+			"recTime": "202109011653",
+			"levelIn": -0.60,
+			"levelOut": -0.46,
+			"allPumbLights": "-",
+			"pumbNum": 5,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "84",
+			"stationName": "洲美",
+			"recTime": "202109011653",
+			"levelIn": 1.12,
+			"levelOut": 3.91,
+			"allPumbLights": "-",
+			"pumbNum": 5,
+			"doorNum": 3
+		},
+		{
+			"stationNo": "40",
+			"stationName": "民權",
+			"recTime": "202109011653",
+			"levelIn": 0.47,
+			"levelOut": -0.35,
+			"allPumbLights": "-",
+			"pumbNum": 1,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "85",
+			"stationName": "勤力",
+			"recTime": "202105271500",
+			"levelIn": 8.42,
+			"levelOut": 5.63,
+			"allPumbLights": "-",
+			"pumbNum": 3,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "86",
+			"stationName": "南深左",
+			"recTime": "202105271500",
+			"levelIn": 7.22,
+			"levelOut": 5.35,
+			"allPumbLights": "-",
+			"pumbNum": 3,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "41",
+			"stationName": "錦州",
+			"recTime": "202109011653",
+			"levelIn": 0.50,
+			"levelOut": -0.35,
+			"allPumbLights": "-",
+			"pumbNum": 5,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "87",
+			"stationName": "南深右",
+			"recTime": "202105271500",
+			"levelIn": -11.25,
+			"levelOut": 5.35,
+			"allPumbLights": "-",
+			"pumbNum": 3,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "07",
+			"stationName": "景美",
+			"recTime": "202109011652",
+			"levelIn": 4.65,
+			"levelOut": 4.19,
+			"allPumbLights": "-",
+			"pumbNum": 5,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "63",
+			"stationName": "景美二",
+			"recTime": "202109011653",
+			"levelIn": 5.24,
+			"levelOut": 4.17,
+			"allPumbLights": "-",
+			"pumbNum": 9,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "08",
+			"stationName": "古亭",
+			"recTime": "202109011652",
+			"levelIn": 4.52,
+			"levelOut": 3.80,
+			"allPumbLights": "-",
+			"pumbNum": 4,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "09",
+			"stationName": "雙園",
+			"recTime": "202109011652",
+			"levelIn": 0.15,
+			"levelOut": 0.62,
+			"allPumbLights": "-",
+			"pumbNum": 10,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "10",
+			"stationName": "貴陽",
+			"recTime": "202109011652",
+			"levelIn": 0.69,
+			"levelOut": 0.61,
+			"allPumbLights": "-",
+			"pumbNum": 2,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "11",
+			"stationName": "忠孝",
+			"recTime": "202109011652",
+			"levelIn": 0.34,
+			"levelOut": 0.62,
+			"allPumbLights": "-",
+			"pumbNum": 9,
+			"doorNum": 5
+		},
+		{
+			"stationNo": "12",
+			"stationName": "六館",
+			"recTime": "202109011652",
+			"levelIn": -2.11,
+			"levelOut": 0.70,
+			"allPumbLights": "-",
+			"pumbNum": 4,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "13",
+			"stationName": "迪化",
+			"recTime": "202109011652",
+			"levelIn": -0.47,
+			"levelOut": 0.64,
+			"allPumbLights": "-",
+			"pumbNum": 11,
+			"doorNum": 3
+		},
+		{
+			"stationNo": "68",
+			"stationName": "社淡上",
+			"recTime": "202109011652",
+			"levelIn": -0.54,
+			"levelOut": 0.68,
+			"allPumbLights": "-",
+			"pumbNum": 4,
+			"doorNum": 12
+		},
+		{
+			"stationNo": "69",
+			"stationName": "社淡下",
+			"recTime": "202109011652",
+			"levelIn": 0.12,
+			"levelOut": 0.74,
+			"allPumbLights": "-",
+			"pumbNum": 14,
+			"doorNum": 8
+		},
+		{
+			"stationNo": "14",
+			"stationName": "中洲",
+			"recTime": "202109011652",
+			"levelIn": 0.12,
+			"levelOut": 0.70,
+			"allPumbLights": "-",
+			"pumbNum": 3,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "01",
+			"stationName": "萬芳",
+			"recTime": "202109011652",
+			"levelIn": 12.97,
+			"levelOut": 12.13,
+			"allPumbLights": "-",
+			"pumbNum": 4,
+			"doorNum": 4
+		},
+		{
+			"stationNo": "02",
+			"stationName": "道南",
+			"recTime": "202109011652",
+			"levelIn": 13.27,
+			"levelOut": 9.12,
+			"allPumbLights": "-",
+			"pumbNum": 6,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "54",
+			"stationName": "老泉溪",
+			"recTime": "202109011653",
+			"levelIn": 11.53,
+			"levelOut": 8.70,
+			"allPumbLights": "-",
+			"pumbNum": 3,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "55",
+			"stationName": "無名溪",
+			"recTime": "202109011653",
+			"levelIn": 11.65,
+			"levelOut": 8.93,
+			"allPumbLights": "-",
+			"pumbNum": 3,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "03",
+			"stationName": "保儀",
+			"recTime": "202109011653",
+			"levelIn": 12.72,
+			"levelOut": 6.92,
+			"allPumbLights": "-",
+			"pumbNum": 2,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "04",
+			"stationName": "實踐",
+			"recTime": "202109011653",
+			"levelIn": 10.84,
+			"levelOut": 9.83,
+			"allPumbLights": "-",
+			"pumbNum": 3,
+			"doorNum": 3
+		},
+		{
+			"stationNo": "05",
+			"stationName": "中港",
+			"recTime": "202109011653",
+			"levelIn": 10.68,
+			"levelOut": 8.44,
+			"allPumbLights": "-",
+			"pumbNum": 4,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "06",
+			"stationName": "埤腹",
+			"recTime": "202109011653",
+			"levelIn": 9.88,
+			"levelOut": 6.32,
+			"allPumbLights": "-",
+			"pumbNum": 3,
+			"doorNum": 3
+		},
+		{
+			"stationNo": "30",
+			"stationName": "芝山",
+			"recTime": "202109011653",
+			"levelIn": 1.37,
+			"levelOut": 1.45,
+			"allPumbLights": "-",
+			"pumbNum": 5,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "31",
+			"stationName": "福德",
+			"recTime": "202109011653",
+			"levelIn": 1.40,
+			"levelOut": 1.45,
+			"allPumbLights": "-",
+			"pumbNum": 5,
+			"doorNum": 3
+		},
+		{
+			"stationNo": "32",
+			"stationName": "福林",
+			"recTime": "202109011653",
+			"levelIn": 1.37,
+			"levelOut": 1.38,
+			"allPumbLights": "-",
+			"pumbNum": 7,
+			"doorNum": 6
+		},
+		{
+			"stationNo": "33",
+			"stationName": "文昌",
+			"recTime": "202109011653",
+			"levelIn": 1.38,
+			"levelOut": 1.41,
+			"allPumbLights": "-",
+			"pumbNum": 3,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "34",
+			"stationName": "東華",
+			"recTime": "202109011654",
+			"levelIn": 1.79,
+			"levelOut": 3.45,
+			"allPumbLights": "-",
+			"pumbNum": 4,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "35",
+			"stationName": "奇岩",
+			"recTime": "202109011653",
+			"levelIn": 1.90,
+			"levelOut": 1.88,
+			"allPumbLights": "-",
+			"pumbNum": 4,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "65",
+			"stationName": "北憲",
+			"recTime": "202109011650",
+			"levelIn": 0.53,
+			"levelOut": 0.70,
+			"allPumbLights": "-",
+			"pumbNum": 4,
+			"doorNum": 2
+		},
+		{
+			"stationNo": "66",
+			"stationName": "福山",
+			"recTime": "202109011652",
+			"levelIn": 6.94,
+			"levelOut": 6.84,
+			"allPumbLights": "-",
+			"pumbNum": 2,
+			"doorNum": 1
+		},
+		{
+			"stationNo": "61",
+			"stationName": "經貿",
+			"recTime": "202109011652",
+			"levelIn": 6.91,
+			"levelOut": 1.33,
+			"allPumbLights": "-",
+			"pumbNum": 2,
+			"doorNum": 1
+		}
+	]
+}

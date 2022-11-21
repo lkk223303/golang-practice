@@ -14,6 +14,7 @@ var FilePath string
 var FileName = "sales.csv"
 
 func Load() {
+	var wrCsv [][]string
 	// get pwd
 	Pwd, _ = os.Getwd()
 
@@ -30,7 +31,7 @@ func Load() {
 	// count := 1
 	for {
 		// read() 一次讀一行 readAll()一次讀全部
-		record, err := r.ReadAll()
+		wrCsv, err = r.ReadAll()
 		if err == io.EOF {
 			break
 		}
@@ -38,7 +39,7 @@ func Load() {
 			log.Fatalln(err)
 		}
 
-		for k, v := range record {
+		for k, v := range wrCsv {
 			if k == 100 {
 				break
 			}
@@ -46,5 +47,11 @@ func Load() {
 		}
 		break
 		// count++
+	}
+
+	wFile, _ := os.Create("csvRewrite.csv")
+	w := csv.NewWriter(wFile)
+	if err = w.WriteAll(wrCsv); err != nil {
+		log.Println(err)
 	}
 }
