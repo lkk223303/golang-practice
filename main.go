@@ -49,6 +49,25 @@ type Book struct {
 	Price   float32
 	Authors []string
 }
+type MyInterface interface {
+	Print()
+}
+
+func Testfunc(x MyInterface) {
+	x.Print()
+}
+
+type MyStruct struct{}
+
+func (me MyStruct) Print() {
+	log.Println("Hi my")
+}
+
+type MeStruct struct{}
+
+func (me MeStruct) Print() {
+	log.Println("Hi me")
+}
 
 func init() {
 	flag.IntVar(&intflag, "intflag", 0, "int flag value")

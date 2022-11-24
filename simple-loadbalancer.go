@@ -48,11 +48,13 @@ type randomS struct {
 }
 
 func (s *randomS) Next(factor Factor) (next Peer, c Constrainable) {
+
 	l := int64(len(s.peers))
 	ni := atomic.AddInt64(&s.count, inRange(0, l)) % l
 
 	next = s.peers[ni]
 	return
+
 }
 func randomMain() {
 	lb := &randomS{
@@ -68,7 +70,7 @@ func randomMain() {
 		count: 0}
 
 	sum := make(map[Peer]int)
-	for i := 0; i < 300; i++ {
+	for i := 0; i < 30000000; i++ {
 		p, _ := lb.Next(DummyFactor)
 		sum[p]++
 	}
