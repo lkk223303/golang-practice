@@ -10,6 +10,7 @@ import (
 	"math/rand"
 	_ "net/http/pprof"
 	"os"
+	"path/filepath"
 	"runtime/pprof"
 	"strings"
 	"sync"
@@ -90,7 +91,113 @@ func do() {
 }
 
 func main() {
+	writeCopyRight()
+}
+func writeCopyRight() {
+	cpr := `/*
+* ----------------------------------------------------------------------------
+* Copyright (c) 2022-present BigObject Inc.
+* All Rights Reserved.
+*
+* Use of, copying, modifications to, and distribution of this software
+* and its documentation without BigObject's written permission can
+* result in the violation of U.S., Taiwan and China Copyright and Patent laws.
+* Violators will be prosecuted to the highest extent of the applicable laws.
+*
+* BIGOBJECT MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE SUITABILITY OF
+* THE SOFTWARE, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+* TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+* PARTICULAR PURPOSE, OR NON-INFRINGEMENT.
+*
+*
+`
 
+	// 	cpr2 := `
+	// *
+	// * @author:   Yi-Cheng Huang
+	// * ----------------------------------------------------------------------------
+	// */
+
+	// `
+	f, _ := os.OpenFile("cpr.go", os.O_RDWR, 0666)
+	defer f.Close()
+	author := "Grace Chen, Kent Huang"
+	b, err := os.ReadFile(f.Name())
+	if err != nil {
+		log.Println(err)
+	}
+	log.Println(f.Name())
+	cprData := []byte(cpr)
+	fileNam := []byte(fmt.Sprintf(`* %s
+*
+* @author:   %s
+* ----------------------------------------------------------------------------
+*/
+	
+`, f.Name(), author))
+	// cprData2 := []byte(cpr2)
+	cprData = append(cprData, fileNam...)
+	cprData = append(cprData, b...)
+
+	log.Println(string(cprData))
+	n, err := f.WriteAt(cprData, 0)
+	if err != nil {
+		log.Println(err)
+	} else {
+		log.Println(n)
+	}
+
+	err = filepath.Walk(".",
+		func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+			matched, err := filepath.Match("*.go", info.Name())
+			if err != nil {
+				fmt.Println(err) // malformed pattern
+				return err       // this is fatal.
+			}
+			if matched {
+				fmt.Println(path, info.Size())
+				f, err := os.OpenFile(path, os.O_RDWR, 0666)
+				if err != nil {
+					log.Fatal(err)
+				}
+				defer f.Close()
+				b, err := os.ReadFile(path)
+				if err != nil {
+					log.Fatal(err)
+				}
+				cprData := []byte(cpr)
+				fileNam := []byte(fmt.Sprintf(`* %s
+*
+* @author:   %s
+* ----------------------------------------------------------------------------
+*/
+	
+`, f.Name(), author))
+				// cprData2 := []byte(cpr2)
+				cprData = append(cprData, fileNam...)
+				cprData = append(cprData, b...)
+
+				f.WriteAt(cprData, 0)
+
+			}
+			return nil
+		})
+	if err != nil {
+		log.Println(err)
+	}
+
+}
+
+func visit(friends []string, callback func(string)) {
+	for _, n := range friends {
+		callback(n)
+	}
+}
+
+func doPprof() {
 	// 创建分析文件
 	file, err := os.Create("./cpu.prof")
 	if err != nil {
@@ -108,19 +215,6 @@ func main() {
 	}
 	time.Sleep(10 * time.Second)
 	// http.ListenAndServe("127.0.0.1:6061", nil)
-}
-func printINT(i *int) {
-	x := i
-	fmt.Println("x", x)
-	fmt.Println("x", *x)
-	fmt.Println("i", i)
-	fmt.Println("i", &i)
-}
-
-func visit(friends []string, callback func(string)) {
-	for _, n := range friends {
-		callback(n)
-	}
 }
 
 func writeCSVfile() {
