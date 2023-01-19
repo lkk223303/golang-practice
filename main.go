@@ -1,13 +1,15 @@
 package main
 
 import (
+	"crypto/rand"
 	"encoding/csv"
 	"encoding/xml"
 	"errors"
 	"flag"
 	"fmt"
 	"log"
-	"math/rand"
+	"math/big"
+
 	_ "net/http/pprof"
 	"os"
 	"path/filepath"
@@ -68,8 +70,8 @@ func (me MyStruct) Print() {
 
 type MeStruct struct{}
 
-func (me MeStruct) Print() {
-	log.Println("Hi me")
+func (me *MeStruct) Print() {
+	me.Print()
 }
 
 func init() {
@@ -91,7 +93,18 @@ func do() {
 }
 
 func main() {
-	writeCopyRight()
+	log.Println(RandomString(5))
+}
+
+func RandomString(n int) string {
+	var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+
+	s := make([]rune, n)
+	for i := range s {
+		r, _ := rand.Int(rand.Reader, big.NewInt(int64(len(letters))))
+		s[i] = letters[r.Int64()]
+	}
+	return string(s)
 }
 func writeCopyRight() {
 	cpr := `/*
@@ -370,7 +383,7 @@ func channelPractice() {
 	for i := 0; i < 100; i++ {
 		go func(outchan chan<- int, errChan chan<- error, val int, wg *sync.WaitGroup) {
 			defer wg.Done()
-			time.Sleep(time.Duration(rand.Int31n(1000)) * time.Millisecond)
+			// time.Sleep(time.Duration(rand.Int31n(1000)) * time.Millisecond)
 			fmt.Println("finished job id : ", val)
 			outchan <- val
 			if val == 60 {
